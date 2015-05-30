@@ -1,17 +1,50 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                hello
-            </p>
-        </div>
-    </section>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<MyBlog.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
 }
 
+<h2>Welcome</h2>
+<h4>To see the admin panel of the system please follow /admin page.</h4>
+<h5>Registering is available</h5>
+
+<table>
+    <tr>
+        <th>
+            Author
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Title
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+           
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+         
+        </td>
+    </tr>
+}
+
+
+</table>
+<div class="pagedList">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.Classic)
+</div>

@@ -16,7 +16,7 @@ namespace MyBlog.Models
         public string Content { set; get; }
         public Article() {
             Date = DateTime.Now; }
-        public string image { set; get; }
+        public string Image { set; get; }
 
 
     }

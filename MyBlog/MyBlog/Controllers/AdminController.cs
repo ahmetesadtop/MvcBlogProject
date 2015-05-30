@@ -9,6 +9,7 @@ using MyBlog.Models;
 using MyBlog.DataAccessList;
 using PagedList;
 using PagedList.Mvc;
+using System.IO;
 
 namespace MyBlog.Controllers
 {
@@ -28,7 +29,7 @@ namespace MyBlog.Controllers
         [HttpGet]
         public ActionResult Index(int page=1)
         {
-            return View(db.Articles.OrderBy(x=>x.Date).ToList().ToPagedList(page,2));
+            return View(db.Articles.OrderBy(x=>x.Date).ToList().ToPagedList(page,5));
         }
 
         //
@@ -44,6 +45,29 @@ namespace MyBlog.Controllers
             return View(article);
         }
 
+
+        public ActionResult Image()
+        {
+            return RedirectToAction("Create");
+        }
+
+        [HttpPost]
+        public ActionResult Image(HttpPostedFileBase file)
+        {
+
+            if (file != null && file.ContentLength > 0)
+            {
+                var filename = Path.GetFileName(file.FileName);
+
+                var path = Path.Combine(Server.MapPath("~/img"), filename);
+                file.SaveAs(path);
+            }
+
+
+            return RedirectToAction("Create");
+        }
+
+
         //
         // GET: /Admin/Create
 
@@ -55,16 +79,39 @@ namespace MyBlog.Controllers
         //
         // POST: /Admin/Create
 
+        //[HttpPost]
+        //public ActionResult Create(Article article)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Articles.Add(article);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(article);
+        //}
         [HttpPost]
-        public ActionResult Create(Article article)
+        public ActionResult Create(Article article, HttpPostedFileBase file)
         {
+            if (!(file == null))
+            {
+                string ImageName = Path.GetFileName(file.FileName);
+                string physicalPath = Server.MapPath("~/img/" + ImageName);
+                file.SaveAs(physicalPath);
+                article.Image = "~/img/" + ImageName;
+            }
+            else
+            {
+                string physicalPath = Server.MapPath("~/img/" + "empty.jpg");
+                article.Image = "~/img/" + "empty.jpg";
+            }
             if (ModelState.IsValid)
             {
                 db.Articles.Add(article);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(article);
         }
 
