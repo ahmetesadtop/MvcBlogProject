@@ -22,13 +22,13 @@
             @Html.ValidationMessageFor(model => model.Author)
         </div>
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.Date)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Date)
             @Html.ValidationMessageFor(model => model.Date)
-        </div>
+        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
@@ -44,14 +44,6 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Content)
             @Html.ValidationMessageFor(model => model.Content)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.image)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.image)
-            @Html.ValidationMessageFor(model => model.image)
         </div>
 
         <p>

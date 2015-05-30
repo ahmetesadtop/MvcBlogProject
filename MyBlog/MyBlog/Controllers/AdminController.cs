@@ -6,10 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyBlog.Models;
-using MyBlog.DAL;
+using MyBlog.DataAccessList;
+using PagedList;
+using PagedList.Mvc;
 
 namespace MyBlog.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private ArticleDbContext db = new ArticleDbContext();
@@ -17,9 +20,15 @@ namespace MyBlog.Controllers
         //
         // GET: /Admin/
 
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        [HttpGet]
+        public ActionResult Index(int page=1)
         {
-            return View(db.Articles.ToList());
+            return View(db.Articles.OrderBy(x=>x.Date).ToList().ToPagedList(page,2));
         }
 
         //

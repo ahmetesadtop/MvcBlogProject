@@ -5,11 +5,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace MyBlog.DAL
+namespace MyBlog.DataAccessList
 {
-    public class ArticleDbContext : DbContext
+    public class ArticleDbContext:DbContext
     {
-        public DbSet<Article> Articles { set; get; }
+       public ArticleDbContext() : base("ArticleDb") { }
+       public DbSet<Article> Articles { set; get; }
 
     }
 }

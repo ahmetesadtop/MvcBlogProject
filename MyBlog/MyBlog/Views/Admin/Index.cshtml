@@ -1,4 +1,8 @@
-﻿@model IEnumerable<MyBlog.Models.Article>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<MyBlog.Models.Article>
+
+@*@model IEnumerable<MyBlog.Models.Article>*@
 
 @{
     ViewBag.Title = "Index";
@@ -12,19 +16,16 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Author)
+            Author
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.image)
+            Content
         </th>
         <th></th>
     </tr>
@@ -44,9 +45,6 @@
             @Html.DisplayFor(modelItem => item.Content)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.image)
-        </td>
-        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
@@ -55,3 +53,6 @@
 }
 
 </table>
+<div class="pagedList">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.Classic)
+</div>
