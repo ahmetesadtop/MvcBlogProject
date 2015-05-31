@@ -103,8 +103,8 @@ namespace MyBlog.Controllers
             }
             else
             {
-                string physicalPath = Server.MapPath("~/img/" + "empty.jpg");
-                article.Image = "~/img/" + "empty.jpg";
+                string physicalPath = Server.MapPath("~/img/Empty.jpeg");
+                article.Image = "~/img/Empty.jpeg";
             }
             if (ModelState.IsValid)
             {
@@ -131,9 +131,32 @@ namespace MyBlog.Controllers
         //
         // POST: /Admin/Edit/5
 
+        //[HttpPost]
+        //public ActionResult Edit(Article article)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(article).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(article);
+        //}
         [HttpPost]
-        public ActionResult Edit(Article article)
+        public ActionResult Edit(Article article, HttpPostedFileBase file)
         {
+            if (!(file == null))
+            {
+                string ImageName = Path.GetFileName(file.FileName);
+                string physicalPath = Server.MapPath("~/img/" + ImageName);
+                file.SaveAs(physicalPath);
+                article.Image = "~/img/" + ImageName;
+            }
+            else
+            {
+                string physicalPath = Server.MapPath("~/img/Empty.jpeg");
+                article.Image = "~/img/Empty.jpeg";
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(article).State = EntityState.Modified;
