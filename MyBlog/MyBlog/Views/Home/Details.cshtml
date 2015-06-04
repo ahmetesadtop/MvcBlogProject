@@ -7,18 +7,10 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>Article</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Author)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Author)
-    </div>
-
-    <
+    <legend>Article</legend>    
     <div class="display-label">
             @Html.DisplayNameFor(model => model.Image)
+        :
 </div>
     <div class="display-field">
         
@@ -28,24 +20,30 @@
         </div>
         
     </div>
+     <div class="display-label">
+         @Html.DisplayNameFor(model => model.Author)
+        :
+        @Html.DisplayFor(model => model.Author)
+    </div>
+    <br />
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Date)
-    </div>
-    <div class="display-field">
+        :
         @Html.DisplayFor(model => model.Date)
     </div>
-
+    <br />
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Title)
-    </div>
-    <div class="display-field">
+        :
         @Html.DisplayFor(model => model.Title)
     </div>
-
+    <br />
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Content)
+        :
     </div>
+    <br />
     <div class="display-field">
         @Html.DisplayFor(model => model.Content)
     </div>

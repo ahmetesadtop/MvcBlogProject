@@ -29,7 +29,7 @@ namespace MyBlog.Controllers
         [HttpGet]
         public ActionResult Index(int page=1)
         {
-            return View(db.Articles.OrderBy(x=>x.Date).ToList().ToPagedList(page,5));
+            return View(db.Articles.OrderBy(x=>x.Date).ToList().ToPagedList(page,10));
         }
 
         //
